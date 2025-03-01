@@ -9,5 +9,7 @@
 *.jar
 *.pem
 *.swp
+*.db
+*.env
 
 !requirements.txt

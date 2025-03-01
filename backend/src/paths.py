@@ -1,5 +1,5 @@
 """
-Este modulo contiene la constante EXEC_FILES_DIR
+Este modulo contiene rutas y configuraciones globales.
 """
 
 from os import path
@@ -14,8 +14,7 @@ TXT_EXT = ".txt"
 USER_RECORD = path.join(SRC_DIR, "users.json")
 USER_STORAGE = path.join(SRC_DIR, "user_storage")
 
-# logging
-
+# Logging
 ERRORS_LOG = path.join(SRC_DIR, "errors.log")
 
 

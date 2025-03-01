@@ -11,11 +11,15 @@ uvicorn main:app --reload
 python3 main.py
 """
 
+from dotenv import load_dotenv
+
+load_dotenv()  # Cargar variables de entorno
 import logging
 import traceback
 from typing import Any, Awaitable, Callable
 
 import uvicorn
+import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
