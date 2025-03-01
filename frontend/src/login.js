@@ -14,6 +14,20 @@ const IDs = {
     deleteUserButton: "delete-user",
 };
 
+function mockAuthenticate(username, password) {
+    if (username && password) {
+        return {
+            exists: true,
+            token: generateMockToken()
+        };
+    } else {
+        return { exists: false };
+    }
+}
+
+function generateMockToken() {
+    return 'token-' + Math.random().toString(36).substr(2) + '-' + Date.now().toString(36);
+}
 
 document.addEventListener("DOMContentLoaded", _ => {
     const elems = Object.keys(IDs).reduce((output, id) => {
@@ -32,7 +46,8 @@ document.addEventListener("DOMContentLoaded", _ => {
             return;
         }
         
-
+        
+        const response = mockAuthenticate(username,password);
         const request = backend.existsUser(username);
         requestFeedback(request, elems[IDs.loginButton], "", "Error");
         request.then(exists => {
@@ -40,8 +55,12 @@ document.addEventListener("DOMContentLoaded", _ => {
                 alert("Usuario o contraseña incorrectos");
                 return;
             }
+            console.log("Autenticación exitosa. Token:", response.token);
+            localStorage.setItem("authToken", response.token);
             redirectTo("app", username);
         });
+        
+
     });
 
     //redirect to sign_in page

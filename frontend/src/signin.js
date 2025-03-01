@@ -16,7 +16,7 @@ const IDs = {
 function isValidUsername(username) {
     return /^[a-zA-Z0-9]{4,}$/.test(username);
 }
-
+ 
 //validate password
 function isValidPassword(password) {
     return /^[\x20-\x7E]{10,}$/.test(password);
@@ -28,14 +28,12 @@ document.addEventListener("DOMContentLoaded", _ => {
         return output;
     }, {});
     
-    console.log("Signup Button:", elems[IDs.signupButton]);
 
     //create new user
     elems[IDs.createUserButton].addEventListener("click", _ => {
         const username = elems[IDs.createUsername].value;
         const password =elems[IDs.createPassword].value;
 
-        console.log(username)
 
         if(!username||!password){
             alert("Por favor llena todos los campos");
@@ -65,7 +63,6 @@ document.addEventListener("DOMContentLoaded", _ => {
 
     //redirect to login
     elems[IDs.signUpButton].addEventListener("click", _ => {
-        console.log('hello from button')
         redirectTo("./index");
     });
 
