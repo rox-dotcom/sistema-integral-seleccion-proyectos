@@ -5,46 +5,56 @@ comunicacion entre el ejecutable de algoritmos, y la logica de la interfaz.
 
 ### Dependencias
 
-La api utilize minimamene la version 3.12 de python, tambien require un java
-runtime, se sugiere JDK 21. La api usa el framework FastAPI, esta y las demas
-dependencias de python estan especificadas en requirements.txt
+La app usa gestionador de paquetes uv, por medio de este se instalan todas las
+dependencias de python, y opcionalmente un runtime de python. Tambien se
+require un runtime de java. La API usa el framework FastAPI (instalado por uv).
+
+Instalar las dependencias:
+
+#### UV
+[Guia para instalar uv](https://docs.astral.sh/uv/getting-started/installation/)
+
+#### Python
+[Guia para instalar python con uv](https://docs.astral.sh/uv/guides/install-python/),
+opcionalmente se puede instalar por otro metodo dependiente de la plataforma.
+la version de python a utilizar esta en `backend/.python-version`
+
+#### Java runtime
+[Guia para instalar java](https://www.java.com/en/download/help/download_options.html),
+la version de java a utilizar esta en `backend/.java-version`
 
 ### Ejecucion del Backend
-
-Instalar previamente las dependencias, luego crea un virtual environment e
-instala las dependencias de python:
 
 ```bash
 cd backend
 
-python -m venv venv
+# instala las dependencias en el entorno de python
+uv sync
 
-# activa el virtual environment
+# activa el entorno virtual
+
 # windows
-#.\venv\Scripts\activate
+.\.venv\Scripts\activate
 # Linux/Mac
-#source venv/bin/activate
+source .venv/bin/activate
 
-pip install -r requirements.txt
-```
-
-Ejecutar backend utilizando uvicorn
-
-```bash
+# Ejecutar backend
 py src/main.py
 
-# u opcionalmente
-
+# opcionalmente utilizando uvicorn directamente
 cd src
 uvicorn main:app --reload
 ```
 
 ### Analizador estatico y Formatter de codigo
 
-El proyecto utilize pylint como linter (analizador de codigo estatico), para
-filtrar errores comunes y mantener un alto estandar de codigo. Ademas para
-mantener consistencia se utilize como formatters isort y black.
+El proyecto usa ruff como linter (analizador de codigo estatico) y formatter,
+para filtrar errores comunes y mantener un alto estandar de codigo. Este es
+instalado por medio de uv, se instala conjunto a las demas dependencias.
 
-La configuracion de estas herramientas depende del entorno de cada
-desarrollador. Las versiones estan configuradas como depndencias en
-requirements.txt.
+Se puede utilizar ruff por medio de `uvx ruff` o despues de activar el entorno
+virtual con solo `ruff`.
+
+Para formatear usar: `$ruff format <target-file-or-dir>`
+
+y para analizar el codigo: `$ruff format<target-file-or-dir>`
