@@ -8,26 +8,11 @@ const IDs = {
     loginUsername: "login-user-name",
     loginButton: "login",
     signinButton: "signin",
-    passwordUser: "password-user",
-
-    deleteUsername: "delete-user-name",
-    deleteUserButton: "delete-user",
+    passwordInput: "password-user",
+    anonymSessionButton: "anonym-user",
+    viewPassButton: "view-passw"
 };
 
-function mockAuthenticate(username, password) {
-    if (username && password) {
-        return {
-            exists: true,
-            token: generateMockToken()
-        };
-    } else {
-        return { exists: false };
-    }
-}
-
-function generateMockToken() {
-    return 'token-' + Math.random().toString(36).substr(2) + '-' + Date.now().toString(36);
-}
 
 document.addEventListener("DOMContentLoaded", _ => {
     const elems = Object.keys(IDs).reduce((output, id) => {
@@ -39,7 +24,7 @@ document.addEventListener("DOMContentLoaded", _ => {
     //checking if user exists, and returning (app or alert)
     elems[IDs.loginButton].addEventListener("click", _ => {
         const username = elems[IDs.loginUsername].value;
-        const password= elems[IDs.passwordUser].value;
+        const password= elems[IDs.passwordInput].value;
 
         if(!username||!password){
             alert("Por favor llena todos los campos");
@@ -47,7 +32,7 @@ document.addEventListener("DOMContentLoaded", _ => {
         }
         
         
-        const response = mockAuthenticate(username,password);
+        const response = backend.mockAuthenticate(username,password);
         const request = backend.existsUser(username);
         requestFeedback(request, elems[IDs.loginButton], "", "Error");
         request.then(exists => {
@@ -55,27 +40,45 @@ document.addEventListener("DOMContentLoaded", _ => {
                 alert("Usuario o contraseña incorrectos");
                 return;
             }
-            console.log("Autenticación exitosa. Token:", response.token);
             localStorage.setItem("authToken", response.token);
             redirectTo("app", username);
         });
         
 
     });
+     
+    //Creating an anonym session
+    elems[IDs.anonymSessionButton].addEventListener("click", async() =>{
+        const username = `guest_${Math.floor(Math.random() * 100000)}`; // Unique anonymous username
+
+        try {
+            const response = await backend.registerUser(username);
+            console.log("Backend response:", response);
+            redirectTo("app", username);
+        } catch (error) {
+            console.error("Error during anonymous session creation:", error);
+            requestFeedback(null, elems[IDs.anonymSessionButton], "", "Error creating anonymous session");
+        }
+    });
+
+    //Show password button
+    elems[IDs.viewPassButton].addEventListener("click", () => {
+        const passwordInput = elems[IDs.passwordInput];
+        const icon = elems[IDs.viewPassButton].querySelector("i");
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+    });
+    
 
     //redirect to sign_in page
     elems[IDs.signinButton].addEventListener("click", _ => {
             redirectTo("./sign_in");
     });
 
-
-    //deleting user. Not for this part! goes on app page
-    elems[IDs.deleteUserButton].addEventListener("click", _ => {
-        const username = elems[IDs.deleteUsername].value;
-        const request = backend.deleteUser(username);
-        requestFeedback(request, elems[IDs.deleteUserButton], "", "Error");
-        request.then(response => {
-            alert(response);
-        });
-    });
 });

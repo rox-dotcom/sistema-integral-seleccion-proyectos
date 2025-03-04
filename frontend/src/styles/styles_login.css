@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #c7c7c7;
+    background-color: #4F6D7A;
     min-height: 100vh;
     display: flex;
     font-family: "Poppins", serif;
@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    background-color: whitesmoke;
+    background-color: #cbd5da;
     width: 400px;
     height: 500px;
     border-radius: 25px;
@@ -56,7 +56,9 @@ body {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-
+    border: none;
+    background-color: #ddd;
+    border-radius: 5px;
 
 }
 
@@ -80,4 +82,11 @@ body {
   color: white;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+.anonimoB{
+    position: relative;
+    top: 30px; 
+    right: 100px;
+    display: inline-block;
 }
