@@ -174,3 +174,19 @@ export async function execute(user, algorithmType) {
 
     return parsedResponse.response;
 }
+
+//Mock function for token password
+export async function mockAuthenticate(username, password) {
+    if (username && password) {
+        return {
+            exists: true,
+            token: generateMockToken()
+        };
+    } else {
+        return { exists: false };
+    }
+}
+
+function generateMockToken() {
+    return 'token-' + Math.random().toString(36).substr(2) + '-' + Date.now().toString(36);
+}

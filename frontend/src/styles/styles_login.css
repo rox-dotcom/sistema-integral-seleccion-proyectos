@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #4F6D7A;
+    min-height: 100vh;
+    display: flex;
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    background-color: #cbd5da;
+    width: 400px;
+    height: 500px;
+    border-radius: 25px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    margin: 10vh auto;
+}
+
+.input-text{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border:none;
+    padding: 5px 15px;
+    outline: none;
+    border-radius: 5px;
+    padding-right: 45px;
+}
+
+.user-act-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.fields {
+    position: relative;
+    width: 200px;
+    height: 40px;
+}
+
+.show-pass{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    border: none;
+    background-color: #ddd;
+    border-radius: 5px;
+
+}
+
+.button{
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    background: #88CCF1;
+    outline: none;
+    border: none;
+
+}
+
+.button:hover {
+    background-color: #2D848A;
+    color: white
+}
+
+.button:active {
+  background-color: #2D848A;
+  color: white;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.anonimoB{
+    position: relative;
+    top: 30px; 
+    right: 100px;
+    display: inline-block;
+}
